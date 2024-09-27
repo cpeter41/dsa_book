@@ -36,3 +36,27 @@ var productExceptSelf = function (nums) {
         else return prev * next;
     });
 };
+
+// BETTER SOLUTION: unshift is too slow, just reverse the array
+// also wrote the code better, less loops, more clean
+
+var productExceptSelf = function (nums) {
+    // since a trailing product would only have a length of nums - 1,
+    // we start arrays with 1 element (multiplicative unity)
+    const prefix = [1];
+    const suffix = [1];
+
+    let preTotal = 1;
+    let sufTotal = 1;
+    // skip first element because trail is undefined there
+    for (let i = 1; i < nums.length; i++) {
+        preTotal *= nums[i - 1];
+        prefix.push(preTotal);
+        sufTotal *= nums[nums.length - i];
+        suffix.push(sufTotal);
+    }
+
+    suffix.reverse();
+
+    return nums.map((num, i) => prefix[i] * suffix[i]);
+};
