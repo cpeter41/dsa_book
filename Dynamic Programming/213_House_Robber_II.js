@@ -29,3 +29,6 @@ var rob = function (nums) {
 
     return Math.max(first, last);
 };
+
+// O(n) time because we only traverse the list twice
+// O(n) space because we create 2 max arrays
